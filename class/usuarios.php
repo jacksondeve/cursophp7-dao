@@ -20,7 +20,7 @@ class usuarios{
         return    $this->$usulogin;
         }
 
-        public function setiusulogin($value){
+        public function setusulogin($value){
             $this->$usulogin = $value;
         }
     }
@@ -112,6 +112,32 @@ class usuarios{
         if(count($results)>0){
             $this->setdata($results[0])
         }
+    }
+
+    public function update($login,$password){
+        $this->setusulogin($login);
+        $this->setsenha($password);
+
+        $sql = new sql();
+
+        $sql->query("UPDATE usuarios SET usulogin = :LOGIN, senha = :PASSWORD WHERE idusuario = :ID", array(
+            ':LOGIN'=>$this->getusulogin();
+            ':PASSWORD'=>$this->getsenha();
+            ':ID'=>$this->getidusuario();
+        ));
+    }
+
+    public function delete(){
+        $sql = new sql();
+
+        $sql->query("DELETE FROM usuarios WHERE idusuario = :ID",array(
+            ':ID'=>$this->getidusuario();
+
+            $this->setidusuario(0);
+            $this->setusulogin("");
+            $this->setsenha("");
+            $this->setdtcadastro(new datetime());
+        ));
     }
 
     // public function __construct($login = "",$password = ""){

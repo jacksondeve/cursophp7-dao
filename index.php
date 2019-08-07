@@ -47,4 +47,11 @@ $usuario = new usuario();
 $usuario->loadbyid();
 $usuario->update("preofessor", "324324");
 
+//////////////////////////////////////////////
+
+$usuario = new usuario();
+$usuario loadbyid(6);
+
+$usuario->delete();
+
 ?>
