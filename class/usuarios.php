@@ -14,7 +14,7 @@ class usuarios{
     public function setidusuario($value){
         $this->$idusuario = $value;
     }
-}
+
 
     public function getusulogin(){
         return    $this->$usulogin;
@@ -53,10 +53,7 @@ class usuarios{
             
             $row = $results[0];
 
-            $this-setidusuario($row['idusuario']);
-            $this-setusulogin($row['usulogin']);
-            $this-setsenha($row['senha']);
-            $this-dtcadastro($row['dtcadastro']);
+            $this->setdata($results[0]);
         }
 
     }
@@ -89,17 +86,42 @@ class usuarios{
             
             $row = $results[0];
 
-            $this-setidusuario($row['idusuario']);
-            $this-setusulogin($row['usulogin']);
-            $this-setsenha($row['senha']);
-            $this-dtcadastro($row['dtcadastro']);
+           $this->setdata($results[0]);
+
         }else{
             throw new exception("login ou / senha invalida");
         }
 
     }
 
+    public function setdata($data){
+        $this-setidusuario($row['idusuario']);
+        $this-setusulogin($row['usulogin']);
+        $this-setsenha($row['senha']);
+        $this-setdtcadastro($row['dtcadastro']);
+    }
 
+    public function insert(){
+        $sql = new sql();
+
+        $results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD", array(
+                'LOGIN'=>$this->getusulogin(),
+                'PASSWORD'=>$this->getsenha()
+        ));
+
+        if(count($results)>0){
+            $this->setdata($results[0])
+        }
+    }
+
+    // public function __construct($login = "",$password = ""){
+
+    // $aluno->setusulogin($aluno);
+    // $aluno->setsenha($senha);
+
+    // }
+
+    
     public function __tostring(){
         return json_encode(array(
         "idusuario"=>$this->getidusuario(),
@@ -109,4 +131,5 @@ class usuarios{
         ));
     }
 
+}
 ?>

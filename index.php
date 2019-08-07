@@ -21,8 +21,30 @@ require_once("config.php");
 
 ////////////////////////////////
 
-$usuario = new usuario();
-$usuario->login("root","123456");
+// $usuario = new usuario();
+// $usuario->login("root","123456");
 
-echo $usuario;
+// echo $usuario;
+
+///////////////////////////////////////
+
+//criando novo usuario
+                //$login, $senha
+// $aluno new usuario();
+
+// $aluno->setusulogin("vitoria");
+// $aluno->setsenha("243523");
+
+// $aluno->insert();
+
+// echo $aluno;
+
+////////////////////////////////////////
+
+//UPDATE 
+
+$usuario = new usuario();
+$usuario->loadbyid();
+$usuario->update("preofessor", "324324");
+
 ?>
